@@ -1,0 +1,93 @@
+// unrealcoursefirstprog.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
+#include "pch.h"
+#include <iostream>
+#include <ctime>
+void PrintIntroduction(int Difficulty)
+{
+	std::cout << "\n\nYou are a secert agent breaking into a level " << Difficulty << " server room\n";
+	std::cout << "You need to enter the correct codes to continue...\n\n";
+}
+
+bool PlayGame(int Difficulty)
+{
+	PrintIntroduction(Difficulty);
+	
+
+	const int CodeA = rand() % Difficulty + Difficulty;
+	const int CodeB = rand() % Difficulty + Difficulty;
+	const int CodeC = rand() % Difficulty + Difficulty;
+	int GuessA, GuessB, GuessC;
+
+
+
+	const int CodeSum = CodeA + CodeB + CodeC;
+	const int CodeProd = CodeA * CodeB * CodeC;
+
+	std::cout << "There are three numbers in the code.\n";
+
+	std::cout << "The codes add up to:\n";
+
+
+	std::cout << CodeSum << std::endl;
+
+	std::cout << "The codes multiply to:\n";
+
+	std::cout << CodeProd << std::endl;
+
+	std::cin >> GuessA;
+	std::cin >> GuessB;
+	std::cin >> GuessC;
+
+
+
+	const int GuessSum = GuessA + GuessB + GuessC;
+	const int GuessProd = GuessA * GuessB * GuessC;
+
+	if (GuessSum == CodeSum && GuessProd == CodeProd)
+	{
+
+		std::cout << "\nyou win! on to the next level ";
+		return true;
+	}
+	else
+	{
+		std::cout << "\nyou lose! try again";
+
+		return false;
+
+	}
+}
+
+
+
+int main()
+{
+	srand(time(NULL));
+
+	int LevelDifficulty = 1;
+	const int MaxLevel = 4;
+
+	while (LevelDifficulty <= MaxLevel) 
+	{
+		bool bLevelComplete = PlayGame(LevelDifficulty);
+		std::cin.clear();
+		std::cin.ignore();
+
+
+		if (bLevelComplete)
+		{
+			++LevelDifficulty;
+
+
+		}
+		
+	}
+
+	std::cout << "Congrats you beat the game!\n";
+
+
+	return 0;
+
+}
